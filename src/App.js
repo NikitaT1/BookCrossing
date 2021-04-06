@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import Books from './components/Books'
+import { Provider } from 'react-redux'
+import configureStore from "./store/configureStore";
+
+
 
 function App() {
+  const store = configureStore();
+   //store.dispatch((dispatch, getState) => ({type: 'Action', payload: [1,2,3,4,5]}))
+   store.dispatch({type: 'Action', payload: [1,2,3,4,5]})
+   store.dispatch({type: 'Error', payload: {message: "testing errors middleware"}})
+   
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+        <Books/>
+        </Provider>
   );
 }
 
