@@ -1,22 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { getBooks} from "../services/fakeBooksService";
+import { loadBooks } from '../store/booksReducer'
 import { useDispatch, useSelector } from "react-redux";
+import { getBooks } from './../services/fakeBooksService';
 
 
 function Books() {
 
+  // const [books, setBooks] = useState([]);
 
+  // useEffect(() => {
+  //   let books = getBooks();
+  //   setBooks(books);
+  // }, []);
 
-  const [books, setBooks] = useState([]);
+  const dispatch = useDispatch()
+  const books = useSelector(state => state.books.list)
+  
 
   useEffect(() => {
-    let books = getBooks();
-    setBooks(books);
+    dispatch(loadBooks())
   }, []);
 
+
+
+  console.log(books)
+  
+
   const handeDelete = (id) => {
-    let booksList = books.filter(f => f._id !== id)
-    setBooks(booksList)
+    // let booksList = books.filter(f => f._id !== id)
+    // setBooks(booksList)
   }  
 
   if (books.length === 0) return <p>There are no books in database</p>
@@ -36,7 +48,7 @@ function Books() {
         </thead>
         <tbody>
           {books.map((m) => (
-            <tr key={m._id}>
+              <tr key={m._id}>
               <td>{m.title}</td>
               <td>{m.genre.name}</td>
               <td>{m.numberInStock}</td>
@@ -50,4 +62,7 @@ function Books() {
   );
 }
 
-export default Books;
+
+
+
+export default Books

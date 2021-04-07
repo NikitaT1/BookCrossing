@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
-import axios from "axios";
-import moment from "moment";
+import { apiCallBegan } from "./api";
 
 const slice = createSlice({
     name: "books",
@@ -9,13 +7,22 @@ const slice = createSlice({
         list: []
     },
     reducers: {
-        bookAdded: (books, action) => {
-            books.list.push(action.payload)
+        booksRecieved: (books, action) => {
+            books.list = action.payload
         }
     }
 })
 
-export const { bookAdded } = slice.actions
+export const { booksRecieved } = slice.actions
+
+export const loadBooks = () => (dispatch) => {
+    dispatch(
+      apiCallBegan({
+        onSuccess:  booksRecieved.type,
+        //onError: booksRequestedFailed.type,
+      })
+    );
+  };
 
 export default slice.reducer
 
