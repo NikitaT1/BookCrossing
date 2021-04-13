@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { loadBooks } from '../store/booksReducer'
+import { loadBooks, bookDelete } from "../store/booksReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { getBooks } from './../services/fakeBooksService';
-
 
 function Books() {
-
   // const [books, setBooks] = useState([]);
 
   // useEffect(() => {
@@ -13,30 +10,31 @@ function Books() {
   //   setBooks(books);
   // }, []);
 
-  const dispatch = useDispatch()
-  const books = useSelector(state => state.books.list)
-  
+  const dispatch = useDispatch();
+  const books = useSelector((state) => state.books.list);
 
   useEffect(() => {
-    dispatch(loadBooks())
+    dispatch(loadBooks());
   }, []);
 
+  let arrId = "5b21ca3eeb7f6fbccd471815";
 
+  let books2 = books;
 
-  console.log(books)
-  
+  // if (books2.length !== 0) {
+  //   let booksInDb = books2.filter((m) => m._id !== arrId);
+  // }
 
   const handeDelete = (id) => {
-    // let booksList = books.filter(f => f._id !== id)
-    // setBooks(booksList)
-  }  
+    debugger;
+    bookDelete(id);
+  };
 
-  if (books.length === 0) return <p>There are no books in database</p>
-  
+  if (books.length === 0) return <p>There are no books in database</p>;
+
   return (
-    
     <div>
-     <p>There are {books.length} books in database</p>
+      <p>There are {books.length} books in database</p>
       <table className="table">
         <thead>
           <tr>
@@ -48,12 +46,19 @@ function Books() {
         </thead>
         <tbody>
           {books.map((m) => (
-              <tr key={m._id}>
+            <tr key={m._id}>
               <td>{m.title}</td>
               <td>{m.genre.name}</td>
               <td>{m.numberInStock}</td>
               <td>{m.dailyRentalRate}</td>
-              <td><button className='btn btn-danger btn-sm' onClick={()=>handeDelete(m._id)}>Delete</button></td>
+              <td>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handeDelete(m._id)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -62,7 +67,4 @@ function Books() {
   );
 }
 
-
-
-
-export default Books
+export default Books;
