@@ -3,7 +3,6 @@ import * as actions from "../api";
 import config from "../../config.json";
 
 const api = ({ dispatch }) => (next) => async (action) => {
-  debugger;
   if (action.type !== actions.apiCallBegan.type) return next(action);
 
   const { url, method, data, onSuccess, onStart, onError } = action.payload;
@@ -43,8 +42,14 @@ const api = ({ dispatch }) => (next) => async (action) => {
   // }
 
   try {
+    // let response;
+    // if (method === "DELETE")
+    //   response = await axios.delete(config.apiUrl + url + data);
+    // dispatch(actions.apiCallSuccess(response.data));
+    // if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+    // else
     const response = await axios.request({
-      baseURL: config.apiUrl + "movies",
+      baseURL: config.apiUrl,
       url,
       method,
       data,

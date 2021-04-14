@@ -1,4 +1,4 @@
 {
     
-    "apiUrl": "https://rental-movies.herokuapp.com/api/"
+    "apiUrl": "http://localhost:3900/api/"
 }

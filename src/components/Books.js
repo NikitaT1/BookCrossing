@@ -17,18 +17,17 @@ function Books() {
     dispatch(loadBooks());
   }, []);
 
-  let arrId = "5b21ca3eeb7f6fbccd471815";
+  // let arrId = "5b21ca3eeb7f6fbccd471815";
 
-  let books2 = books;
+  // let books2 = books;
 
-  // if (books2.length !== 0) {
-  //   let booksInDb = books2.filter((m) => m._id !== arrId);
-  // }
+  // // if (books2.length !== 0) {
+  // //   let booksInDb = books2.filter((m) => m._id !== arrId);
+  // // }
 
-  const handeDelete = (id) => {
-    debugger;
-    bookDelete(id);
-  };
+  // const handeDelete = (id) => {
+  //   bookDelete(id);
+  // };
 
   if (books.length === 0) return <p>There are no books in database</p>;
 
@@ -54,7 +53,7 @@ function Books() {
               <td>
                 <button
                   className="btn btn-danger btn-sm"
-                  onClick={() => handeDelete(m._id)}
+                  onClick={() => dispatch(bookDelete(m._id))}
                 >
                   Delete
                 </button>

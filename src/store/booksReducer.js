@@ -11,7 +11,10 @@ const slice = createSlice({
       books.list = action.payload;
     },
     bookRemoved: (books, action) => {
-      books.list.filter((f) => f._id !== action.payload.id);
+      debugger;
+      let newBook = books.list.filter((f) => f._id !== action.payload._id);
+      books.list = newBook;
+      console.log(books.list);
     },
   },
 });
@@ -23,18 +26,24 @@ export const loadBooks = () => (dispatch) => {
     apiCallBegan({
       onSuccess: booksRecieved.type,
       //onError: booksRequestedFailed.type,
-      onType: "loadBooks",
+      method: "GET",
+      url: "movies",
     })
   );
 };
 
+// export const bookDelete = (id) => {
+//   debugger;
+//   console.log(id);
+// };
+
 export const bookDelete = (id) => (dispatch) => {
-  debugger;
   dispatch(
     apiCallBegan({
-      data: id,
-      onType: "bookDelete",
       onSuccess: bookRemoved.type,
+      data: id,
+      method: "delete",
+      url: "movies/" + id,
     })
   );
 };
