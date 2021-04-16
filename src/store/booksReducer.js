@@ -11,15 +11,23 @@ const slice = createSlice({
       books.list = action.payload;
     },
     bookRemoved: (books, action) => {
-      debugger;
       let newBook = books.list.filter((f) => f._id !== action.payload._id);
       books.list = newBook;
-      console.log(books.list);
+    },
+    likeUpdated: (books, action) => {
+      debugger;
+      books.list.forEach((m) => {
+        debugger;
+        if (m._id === action.payload._id) {
+          debugger;
+          m.like = action.payload.like;
+        }
+      });
     },
   },
 });
 
-export const { booksRecieved, bookRemoved } = slice.actions;
+export const { booksRecieved, bookRemoved, likeUpdated } = slice.actions;
 
 export const loadBooks = () => (dispatch) => {
   dispatch(
@@ -32,11 +40,6 @@ export const loadBooks = () => (dispatch) => {
   );
 };
 
-// export const bookDelete = (id) => {
-//   debugger;
-//   console.log(id);
-// };
-
 export const bookDelete = (id) => (dispatch) => {
   dispatch(
     apiCallBegan({
@@ -44,6 +47,17 @@ export const bookDelete = (id) => (dispatch) => {
       data: id,
       method: "delete",
       url: "movies/" + id,
+    })
+  );
+};
+
+export const likeUpdate = (id, likeStatus) => (dispatch) => {
+  dispatch(
+    apiCallBegan({
+      onSuccess: likeUpdated.type,
+      data: { like: likeStatus },
+      method: "put",
+      url: "movies/like/" + id,
     })
   );
 };

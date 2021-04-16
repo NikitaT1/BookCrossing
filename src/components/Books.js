@@ -1,33 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { loadBooks, bookDelete } from "../store/booksReducer";
 import { useDispatch, useSelector } from "react-redux";
+import Likes from "./Likes";
+import { likeUpdate } from "./../store/booksReducer";
 
 function Books() {
-  // const [books, setBooks] = useState([]);
-
-  // useEffect(() => {
-  //   let books = getBooks();
-  //   setBooks(books);
-  // }, []);
-
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.list);
 
   useEffect(() => {
     dispatch(loadBooks());
   }, []);
-
-  // let arrId = "5b21ca3eeb7f6fbccd471815";
-
-  // let books2 = books;
-
-  // // if (books2.length !== 0) {
-  // //   let booksInDb = books2.filter((m) => m._id !== arrId);
-  // // }
-
-  // const handeDelete = (id) => {
-  //   bookDelete(id);
-  // };
 
   if (books.length === 0) return <p>There are no books in database</p>;
 
@@ -41,6 +24,8 @@ function Books() {
             <th>Genre</th>
             <th>Stock</th>
             <th>Rate</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -51,8 +36,17 @@ function Books() {
               <td>{m.numberInStock}</td>
               <td>{m.dailyRentalRate}</td>
               <td>
+                <Likes
+                  like={m.like}
+                  likeButton={(likeNewStatus) =>
+                    dispatch(likeUpdate(m._id, likeNewStatus))
+                  }
+                />
+              </td>
+              <td>
                 <button
                   className="btn btn-danger btn-sm"
+                  style={{ cursor: "pointer" }}
                   onClick={() => dispatch(bookDelete(m._id))}
                 >
                   Delete
