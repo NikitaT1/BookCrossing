@@ -15,11 +15,8 @@ const slice = createSlice({
       books.list = newBook;
     },
     likeUpdated: (books, action) => {
-      debugger;
       books.list.forEach((m) => {
-        debugger;
         if (m._id === action.payload._id) {
-          debugger;
           m.like = action.payload.like;
         }
       });

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { loadBooks, bookDelete } from "../store/booksReducer";
 import { useDispatch, useSelector } from "react-redux";
-import Likes from "./Likes";
+import Likes from "./common/Likes";
 import { likeUpdate } from "./../store/booksReducer";
 
 function Books() {
