@@ -1,9 +1,0 @@
-.book {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-
-.genres {
-  padding-right: 2rem;
-}
