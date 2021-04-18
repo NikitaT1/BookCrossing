@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { loadBooks, bookDelete } from "../store/booksReducer";
 import { useDispatch, useSelector } from "react-redux";
 import Likes from "./common/Likes";
 import { likeUpdate } from "./../store/booksReducer";
+import Pagination from "./common/pagination";
+import { paginate } from "../utils/paginate";
 
 function Books() {
   const dispatch = useDispatch();
@@ -12,7 +14,16 @@ function Books() {
     dispatch(loadBooks());
   }, []);
 
+  const pageSizeNumber = 4;
+  const [currentPageNumber, currentPageChange] = useState(1);
+
+  const handlePageChange = (page) => {
+    currentPageChange(page);
+  };
+
   if (books.length === 0) return <p>There are no books in database</p>;
+
+  const booksInOnePage = paginate(books, currentPageNumber, pageSizeNumber);
 
   return (
     <div>
@@ -29,7 +40,7 @@ function Books() {
           </tr>
         </thead>
         <tbody>
-          {books.map((m) => (
+          {booksInOnePage.map((m) => (
             <tr key={m._id}>
               <td>{m.title}</td>
               <td>{m.genre.name}</td>
@@ -56,6 +67,14 @@ function Books() {
           ))}
         </tbody>
       </table>
+      <footer>
+        <Pagination
+          itemsCount={books.length}
+          pageSize={pageSizeNumber}
+          onPageChange={handlePageChange}
+          currentPageNumber={currentPageNumber}
+        />
+      </footer>
     </div>
   );
 }
