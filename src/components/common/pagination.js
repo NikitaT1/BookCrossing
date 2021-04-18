@@ -16,6 +16,7 @@ const Pagination = (props) => {
             className={
               p === props.currentPageNumber ? "page-item active" : "page-item"
             }
+            style={{ cursor: "pointer" }}
           >
             <a className="page-link" onClick={() => props.onPageChange(p)}>
               {p}
