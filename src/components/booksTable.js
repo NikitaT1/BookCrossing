@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link, NavLink } from "react-router-dom";
 import Likes from "./common/likes";
 import TableBody from "./common/tableBody";
 import TableHeader from "./common/tableHeader";
@@ -11,7 +12,11 @@ const BooksTable = ({
   sortColumn,
 }) => {
   const columns = [
-    { path: "title", label: "Title" },
+    {
+      path: "title",
+      label: "Title",
+      content: (book) => <Link to={`/books/${book._id}`}>{book.title}</Link>,
+    },
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
     { path: "dailyRentalRate", label: "Rate" },
