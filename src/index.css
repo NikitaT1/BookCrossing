@@ -22,3 +22,7 @@ body {
 .navbar {
   margin-bottom: 1rem;
 }
+
+p {
+  padding-top: 1rem;
+}

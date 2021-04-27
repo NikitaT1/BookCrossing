@@ -3,6 +3,7 @@ import { loadBooks, bookDelete } from "../store/booksReducer";
 import { loadGenres } from "../store/genresReducer";
 import { useDispatch, useSelector } from "react-redux";
 import { likeUpdate } from "../store/booksReducer";
+import { Link, NavLink } from "react-router-dom";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import Genres from "./genres";
@@ -79,6 +80,9 @@ const Books = () => {
         />
       </div>
       <div className="col">
+        <Link to="/newbook">
+          <button className="btn btn-primary">New Book</button>
+        </Link>
         <p>
           There are {filteredBooks.length} of {currentGenre.name.toLowerCase()}{" "}
           books in database

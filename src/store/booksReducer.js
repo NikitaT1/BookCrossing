@@ -21,10 +21,18 @@ const slice = createSlice({
         }
       });
     },
+    bookAdded: (books, action) => {
+      books.list.push(action.payload);
+    },
   },
 });
 
-export const { booksRecieved, bookRemoved, likeUpdated } = slice.actions;
+export const {
+  booksRecieved,
+  bookRemoved,
+  likeUpdated,
+  bookAdded,
+} = slice.actions;
 
 export const loadBooks = () => (dispatch) => {
   dispatch(
@@ -55,6 +63,20 @@ export const likeUpdate = (id, likeStatus) => (dispatch) => {
       data: { like: likeStatus },
       method: "put",
       url: "movies/like/" + id,
+    })
+  );
+};
+
+export const addBook = (title, genreId, numberInStock, dailyRentalRate) => (
+  dispatch
+) => {
+  debugger;
+  dispatch(
+    apiCallBegan({
+      onSuccess: bookAdded.type,
+      data: { title, genreId, numberInStock, dailyRentalRate },
+      method: "post",
+      url: "movies/",
     })
   );
 };
