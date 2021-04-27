@@ -76,7 +76,7 @@ const NewBookForm = ({ match, history }) => {
           defaultValue={title}
           autoFocus={true}
           onChange={handleTitleSet}
-          error={errors.username}
+          error={errors.title}
         />
         <Select
           name="genreId"
@@ -84,21 +84,21 @@ const NewBookForm = ({ match, history }) => {
           value={genreId}
           options={genres}
           onChange={handleGenreIdSet}
-          error={errors.password}
+          error={errors.genreId}
         />
         <Input
           name="numberInStock"
           label="Number in Stock"
           defaultValue={numberInStock}
           onChange={handleNumberInStockSet}
-          error={errors.name}
+          error={errors.numberInStock}
         />
         <Input
           name="dailyRentalRate"
           label="Rate"
           defaultValue={dailyRentalRate}
           onChange={handleDailyRentalRateSet}
-          error={errors.name}
+          error={errors.numberInStock}
         />
         <button className="btn btn-primary">Add book</button>
       </form>
