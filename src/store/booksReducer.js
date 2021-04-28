@@ -40,7 +40,7 @@ export const loadBooks = () => (dispatch) => {
       onSuccess: booksRecieved.type,
       //onError: booksRequestedFailed.type,
       method: "GET",
-      url: "movies",
+      url: "books",
     })
   );
 };
@@ -51,7 +51,7 @@ export const bookDelete = (id) => (dispatch) => {
       onSuccess: bookRemoved.type,
       data: id,
       method: "delete",
-      url: "movies/" + id,
+      url: "books/" + id,
     })
   );
 };
@@ -62,7 +62,7 @@ export const likeUpdate = (id, likeStatus) => (dispatch) => {
       onSuccess: likeUpdated.type,
       data: { like: likeStatus },
       method: "put",
-      url: "movies/like/" + id,
+      url: "books/like/" + id,
     })
   );
 };
@@ -76,7 +76,7 @@ export const addBook = (title, genreId, numberInStock, dailyRentalRate) => (
       onSuccess: bookAdded.type,
       data: { title, genreId, numberInStock, dailyRentalRate },
       method: "post",
-      url: "movies/",
+      url: "books/",
     })
   );
 };

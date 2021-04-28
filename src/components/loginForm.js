@@ -76,8 +76,9 @@ const LoginForm = () => {
           onChangeHook={handleChangePassword}
           error={errors.password}
         />
-        {/* disabled={validate()}  */}
-        <button className="btn btn-primary">Login</button>
+        <button disabled={validate()} className="btn btn-primary">
+          Login
+        </button>
       </form>
     </div>
   );

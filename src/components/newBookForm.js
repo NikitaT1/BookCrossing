@@ -100,7 +100,9 @@ const NewBookForm = ({ match, history }) => {
           onChange={handleDailyRentalRateSet}
           error={errors.numberInStock}
         />
-        <button className="btn btn-primary">Add book</button>
+        <button disabled={validate()} className="btn btn-primary">
+          Add book
+        </button>
       </form>
     </div>
   );
