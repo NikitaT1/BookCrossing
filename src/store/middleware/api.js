@@ -2,7 +2,7 @@ import axios from "axios";
 import * as actions from "../api";
 import config from "../../config.json";
 
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+// axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const api = ({ dispatch }) => (next) => async (action) => {
   if (action.type !== actions.apiCallBegan.type) return next(action);
