@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "font-awesome/css/font-awesome.css";
 import { BrowserRouter } from "react-router-dom";
 
+// "apiUrl": "http://localhost:3900/api/"
 ReactDOM.render(
   <BrowserRouter>
     <App />
