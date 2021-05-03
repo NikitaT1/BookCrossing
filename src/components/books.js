@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
+import ReactLoading from "react-loading";
 import { loadBooks, bookDelete } from "../store/booksReducer";
 import { loadGenres } from "../store/genresReducer";
-import { useDispatch, useSelector } from "react-redux";
 import { likeUpdate } from "../store/booksReducer";
-import { Link, NavLink } from "react-router-dom";
 import Pagination from "./common/pagination";
 import { paginate } from "../utils/paginate";
 import Genres from "./genres";
 import BooksTable from "./booksTable";
-import _ from "lodash";
 
 const Books = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Books = () => {
     { name: "All genres" },
     ...useSelector((state) => state.genres.list),
   ];
+  const fetchingBooks = useSelector((state) => state.books.isFetching);
+  const fetchingGenres = useSelector((state) => state.genres.isFetching);
 
   useEffect(() => {
     dispatch(loadBooks());
@@ -55,7 +58,29 @@ const Books = () => {
     }
   };
 
-  if (books.length === 0) return <p>There are no books in database</p>;
+  const newBookButton = (
+    <Link to="/newbook">
+      <button className="btn btn-primary">New Book</button>
+    </Link>
+  );
+
+  if (!fetchingGenres || !fetchingBooks)
+    return (
+      <ReactLoading
+        type={"bars"}
+        color={"deepskyblue"}
+        height={"20%"}
+        width={"20%"}
+      />
+    );
+
+  if (books.length === 0)
+    return (
+      <div>
+        <p>There are no books in database</p>
+        {newBookButton}
+      </div>
+    );
 
   const filteredBooks =
     currentGenre && currentGenre._id
@@ -80,9 +105,7 @@ const Books = () => {
         />
       </div>
       <div className="col">
-        <Link to="/newbook">
-          <button className="btn btn-primary">New Book</button>
-        </Link>
+        {newBookButton}
         <p>
           There are {filteredBooks.length} of {currentGenre.name.toLowerCase()}{" "}
           books in database

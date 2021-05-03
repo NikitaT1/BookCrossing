@@ -50,6 +50,7 @@ const LoginForm = () => {
   };
 
   const handleSubmit = (e) => {
+    debugger;
     e.preventDefault();
     const error = validate();
     setErrors(error || {});
@@ -64,7 +65,7 @@ const LoginForm = () => {
           label="Username"
           value={username}
           autoFocus={true}
-          onChangeHook={handleChangeName}
+          onChange={handleChangeName}
           error={errors.username}
         />
         <Input
@@ -73,7 +74,7 @@ const LoginForm = () => {
           type="password"
           value={password}
           autoFocus={false}
-          onChangeHook={handleChangePassword}
+          onChange={handleChangePassword}
           error={errors.password}
         />
         <button disabled={validate()} className="btn btn-primary">

@@ -72,7 +72,7 @@ const RegisterForm = () => {
         <Input
           name="name"
           label="Name"
-          value={password}
+          value={name}
           autoFocus={false}
           onChangeHook={handleRegisterName}
           error={errors.name}

@@ -5,10 +5,12 @@ const slice = createSlice({
   name: "genres",
   initialState: {
     list: [],
+    isFetching: false,
   },
   reducers: {
     genresRecieved: (genres, action) => {
       genres.list = action.payload;
+      genres.isFetching = true;
     },
   },
 });

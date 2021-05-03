@@ -20,9 +20,11 @@ const NewBookForm = ({ match, history }) => {
   const [numberInStock, numberInStockSet] = useState("");
   const [dailyRentalRate, dailyRentalRateSet] = useState("");
   const [errors, setErrors] = useState({});
+  const [isDisabled, setIsDisabled] = useState(false);
+  console.log(errors);
 
-  const handleTitleSet = ({ currentTarget: input }) => {
-    titleSet(input.value);
+  const handleTitleSet = (e) => {
+    titleSet(e.currentTarget.value);
   };
 
   const handleGenreIdSet = (e) => {
@@ -42,7 +44,7 @@ const NewBookForm = ({ match, history }) => {
   };
 
   const validate = () => {
-    const validationObj = { title };
+    const validationObj = { title, numberInStock, dailyRentalRate };
     const result = Joi.validate(validationObj, schema, { abortEarly: false });
     if (!result.error) return null;
     const errors = {};
@@ -53,18 +55,39 @@ const NewBookForm = ({ match, history }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const error = validate();
+
     setErrors(error || {});
-    if (errors) return;
-    dispatch(
-      addBook(
-        e.currentTarget.title.value,
-        e.currentTarget.genreId.value,
-        e.currentTarget.numberInStock.value,
-        e.currentTarget.dailyRentalRate.value
-      )
-    );
-    history.push("/books");
+
+    if (!Object.keys(errors).length) {
+      dispatch(
+        addBook(
+          e.currentTarget.title.value,
+          e.currentTarget.genreId.value,
+          e.currentTarget.numberInStock.value,
+          e.currentTarget.dailyRentalRate.value
+        )
+      );
+      history.push("/books");
+    } else setErrors(error || {});
+    // } return;
+    // dispatch(
+    //   addBook(
+    //     e.currentTarget.title.value,
+    //     e.currentTarget.genreId.value,
+    //     e.currentTarget.numberInStock.value,
+    //     e.currentTarget.dailyRentalRate.value
+    //   )
+    // );
+    // history.push("/books");
   };
+
+  // useEffect(() => {
+  //   const error = validate();
+
+  //   if (error) {
+  //     setIsDisabled(!isDisabled);
+  //   } else P
+  // }, [isDisabled, errors]);
 
   return (
     <div>
@@ -81,7 +104,7 @@ const NewBookForm = ({ match, history }) => {
         <Select
           name="genreId"
           label="Genre"
-          value={genreId}
+          defaultValue={genreId}
           options={genres}
           onChange={handleGenreIdSet}
           error={errors.genreId}
@@ -98,8 +121,9 @@ const NewBookForm = ({ match, history }) => {
           label="Rate"
           defaultValue={dailyRentalRate}
           onChange={handleDailyRentalRateSet}
-          error={errors.numberInStock}
+          error={errors.dailyRentalRate}
         />
+        {/* disabled={validate()}  */}
         <button disabled={validate()} className="btn btn-primary">
           Add book
         </button>

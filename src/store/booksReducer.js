@@ -5,10 +5,12 @@ const slice = createSlice({
   name: "books",
   initialState: {
     list: [],
+    isFetching: false,
   },
   reducers: {
     booksRecieved: (books, action) => {
       books.list = action.payload;
+      books.isFetching = true;
     },
     bookRemoved: (books, action) => {
       let newBook = books.list.filter((f) => f._id !== action.payload._id);
@@ -70,7 +72,6 @@ export const likeUpdate = (id, likeStatus) => (dispatch) => {
 export const addBook = (title, genreId, numberInStock, dailyRentalRate) => (
   dispatch
 ) => {
-  debugger;
   dispatch(
     apiCallBegan({
       onSuccess: bookAdded.type,
