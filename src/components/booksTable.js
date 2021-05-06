@@ -15,7 +15,7 @@ const BooksTable = ({
     {
       path: "title",
       label: "Title",
-      content: (book) => <Link to={`/books/${book._id}`}>{book.title}</Link>,
+      // content: (book) => <Link to={`/books/${book._id}`}>{book.title}</Link>,
     },
     { path: "genre.name", label: "Genre" },
     { path: "numberInStock", label: "Stock" },
